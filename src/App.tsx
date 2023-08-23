@@ -1,19 +1,20 @@
 import { useAppSelector } from "./redux/hooks/useAppSelector";
 import {useDispatch} from 'react-redux'
 import {setAge, setName} from './redux/reducers/user.Reducer';
-
+import {setTheme} from './redux/reducers/themeReducer';
 
 const App = () => {
   const dispatch = useDispatch();
   const user = useAppSelector((state) => state.user);
+  const theme = useAppSelector((state) => state.theme);
 
 
   return(
     <div>
       Meu nome é: {user.name} <br />
-      e tenho {user.age} anos. <br />
+      e tenho {user.age} anos. <br/ >
 
-      Tema:
+      <span onClick={(e) => dispatch(setTheme(theme.status === 'ligth' ? 'dark' : 'ligth'))}>Tema: {theme.status}</span>
 
       <hr />
       <input 
@@ -22,7 +23,7 @@ const App = () => {
       
       <input 
         type="number" 
-        onChange= {(e) => dispatch(setAge(e.target.value))}
+        onChange= {(e) => dispatch(setAge(parseInt(e.target.value)))}
           
         
         value={user.age}/>
